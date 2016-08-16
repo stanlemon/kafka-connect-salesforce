@@ -1,5 +1,3 @@
-Welcome to your new Kafka Connect connector!
-
 # Overview
 
 This Kafka Connect connector integrates with the [Salesforce Streaming Api](https://developer.salesforce.com/docs/atlas.en-us.api_streaming.meta/api_streaming/intro_stream.htm)
