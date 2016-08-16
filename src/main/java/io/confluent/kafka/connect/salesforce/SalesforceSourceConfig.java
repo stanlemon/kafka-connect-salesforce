@@ -45,23 +45,25 @@ public class SalesforceSourceConfig extends AbstractConfig {
   public static final String KAFKA_TOPIC_CONF = "kafka.topic";
 
   public static final String CONNECTION_TIMEOUT_CONF = "connection.timeout";
-  public static final String VERSION_DOC = "The version of the salesforce API to use.";
+
+  static final String VERSION_DOC = "The version of the salesforce API to use.";
   static final String USERNAME_DOC = "Salesforce username to connect with.";
   static final String PASSWORD_DOC = "Salesforce password to connect with.";
   static final String PASSWORD_TOKEN_DOC = "The Salesforce security token associated with the username.";
   static final String CONSUMER_KEY_DOC = "The consumer key for the OAuth application.";
   static final String CONSUMER_SECRET_DOC = "The consumer secret for the OAuth application.";
   static final String INSTANCE_DOC = "The Salesforce instance to connect to.";
-  static final String CURL_LOGGING_DOC = "If enabled the logs will output the equivalent curl commands. This is a security risk.";
-  static final String CONNECTION_TIMEOUT_DOC = "connection.timeout";
-  static final String SALESFORCE_PUSH_TOPIC_NAME_DOC = "The Salesforce topic to create and subscribe to.";
+  static final String CURL_LOGGING_DOC = "If enabled the logs will output the equivalent curl commands. This is a security risk because your authorization header will end up in the log file. Use at your own risk.";
+  static final String CONNECTION_TIMEOUT_DOC = "The amount of time to wait while connecting to the Salesforce streaming endpoint.";
+  static final String SALESFORCE_PUSH_TOPIC_NAME_DOC = "The Salesforce topic to subscribe to. If " + SALESFORCE_PUSH_TOPIC_CREATE_CONF +
+      " is set to true, a PushTopic with this name will be created.";
   static final String SALESFORCE_PUSH_TOPIC_CREATE_DOC = "Flag to determine if the PushTopic should be created if it does not exist.";
   static final String SALESFORCE_PUSH_TOPIC_NOTIFY_CREATE_DOC = "Flag to determine if the PushTopic should respond to creates.";
   static final String SALESFORCE_PUSH_TOPIC_NOTIFY_UPDATE_DOC = "Flag to determine if the PushTopic should respond to updates.";
   static final String SALESFORCE_PUSH_TOPIC_NOTIFY_DELETE_DOC = "Flag to determine if the PushTopic should respond to deletes.";
   static final String SALESFORCE_PUSH_TOPIC_NOTIFY_UNDELETE_DOC = "Flag to determine if the PushTopic should respond to undeletes.";
   static final String SALESFORCE_OBJECT_DOC = "The Salesforce object to create a topic for.";
-  static final String KAFKA_TOPIC_DOC = "kafka.topic";
+  static final String KAFKA_TOPIC_DOC = "The Kafka topic to write the SalesForce data to.";
 
   public SalesforceSourceConfig(ConfigDef config, Map<String, ?> parsedConfig) {
     super(config, parsedConfig);
