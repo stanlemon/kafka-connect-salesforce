@@ -1,3 +1,18 @@
+/**
+ * Copyright (C) 2016 Jeremy Custenborder (jcustenborder@gmail.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.confluent.kafka.connect.salesforce;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,15 +38,15 @@ import java.util.Map;
 import java.util.TimeZone;
 
 class SObjectHelper {
-  static final Parser parser;
-  static final Map<String, ?> sourcePartitions = new HashMap<>();
+  static final Parser PARSER;
+  static final Map<String, ?> SOURCE_PARTITIONS = new HashMap<>();
   private static final Logger log = LoggerFactory.getLogger(SObjectHelper.class);
 
   static {
     Parser p = new Parser();
 //    "2016-08-15T22:07:59.000Z"
     p.registerTypeParser(Timestamp.SCHEMA, new DateTypeParser(TimeZone.getTimeZone("UTC"), new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.SSS'Z'")));
-    parser = p;
+    PARSER = p;
   }
 
   public static boolean isTextArea(SObjectDescriptor.Field field) {
@@ -149,7 +164,7 @@ class SObjectHelper {
     for (Field field : schema.fields()) {
       String fieldName = field.name();
       JsonNode valueNode = data.findValue(fieldName);
-      Object value = parser.parseJsonNode(field.schema(), valueNode);
+      Object value = PARSER.parseJsonNode(field.schema(), valueNode);
       struct.put(field, value);
     }
   }
@@ -166,7 +181,7 @@ class SObjectHelper {
     convertStruct(sobjectNode, keySchema, keyStruct);
     convertStruct(sobjectNode, valueSchema, valueStruct);
     Map<String, Long> sourceOffset = ImmutableMap.of(pushTopicName, replayId);
-    return new SourceRecord(sourcePartitions, sourceOffset, topic, keySchema, keyStruct, valueSchema, valueStruct);
+    return new SourceRecord(SOURCE_PARTITIONS, sourceOffset, topic, keySchema, keyStruct, valueSchema, valueStruct);
   }
 
 }
