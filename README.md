@@ -50,10 +50,6 @@ curl.logging=false
 # Building
 
 ```
-git clone https://github.com/jcustenborder/connect-utils
-cd connect-utils
-mvn clean install
-
 git clone https://github.com/jcustenborder/kafka-connect-salesforce
 cd kafka-connect-salesforce
 mvn clean install
