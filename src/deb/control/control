@@ -1,0 +1,8 @@
+Package: [[name]]
+Version: [[version]]
+Section: misc
+Priority: optional
+Architecture: all
+Maintainer: Jeremy Custenborder <jcustenborder@gmail.com>
+Description: Kafka Connect connector for live streaming data from salesforce.
+Distribution: development
