@@ -1,17 +1,18 @@
-#!groovy
-node {
-    def mvnBuildNumber = "0.1.${env.BUILD_NUMBER}"
+#!/usr/bin/env groovy
 
-    def mvnHome = tool 'M3'
+def versionNumber = "0.1.${env.BUILD_NUMBER}"
+def mvnHome = tool 'M3'
 
-    checkout scm
-
+def changeVersion (version) {
     if (env.BRANCH_NAME == 'master') {
-        stage 'versioning'
-        sh "${mvnHome}/bin/mvn -B versions:set -DgenerateBackupPoms=false -DnewVersion=${mvnBuildNumber}"
+        sh "${mvnHome}/bin/mvn -B versions:set -DgenerateBackupPoms=false -DnewVersion=${version}"
     }
+}
 
+node {
+    checkout scm
     stage 'build'
+    changeVersion(versionNumber)
     sh "${mvnHome}/bin/mvn -B -P maven-central clean verify package"
 
     junit '**/target/surefire-reports/TEST-*.xml'
