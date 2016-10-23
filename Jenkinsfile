@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-@Library("github.com/jcustenborder/jenkins-pipeline") import com.github.jcustenborder.jenkins.pipeline.MavenUtilities
+@Library("github.com/jcustenborder/jenkins-pipeline@jenkins") import com.github.jcustenborder.jenkins.pipeline.MavenUtilities
 def mavenUtils = new MavenUtilities(steps)
 
 node {
