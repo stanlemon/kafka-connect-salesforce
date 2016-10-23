@@ -1,15 +1,14 @@
 #!/usr/bin/env groovy
-
-def versionNumber = "0.1.${env.BUILD_NUMBER}"
-def mvnHome = tool 'M3'
-
-def changeVersion (version) {
-    if (env.BRANCH_NAME == 'master') {
-        sh "${mvnHome}/bin/mvn -B versions:set -DgenerateBackupPoms=false -DnewVersion=${version}"
-    }
-}
-
 node {
+    def versionNumber = "0.1.${env.BUILD_NUMBER}"
+    def mvnHome = tool 'M3'
+
+    def changeVersion (version) {
+        if (env.BRANCH_NAME == 'master') {
+            sh "${mvnHome}/bin/mvn -B versions:set -DgenerateBackupPoms=false -DnewVersion=${version}"
+        }
+    }
+
     checkout scm
     stage 'build'
     changeVersion(versionNumber)
