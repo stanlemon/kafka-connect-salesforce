@@ -1,10 +1,6 @@
 #!/usr/bin/env groovy
-
-def changeVersion (String mvnHome, String version) {
-    if (env.BRANCH_NAME == 'master') {
-        sh "${mvnHome}/bin/mvn -B versions:set -DgenerateBackupPoms=false -DnewVersion=${version}"
-    }
-}
+@Library("github.com/jcustenborder/jenkins-pipeline") import com.github.jcustenborder.jenkins.pipeline.MavenUtilities
+def mavenUtils = new MavenUtilities(steps)
 
 node {
     def versionNumber = "0.1.${env.BUILD_NUMBER}"
@@ -12,7 +8,7 @@ node {
 
     checkout scm
     stage 'build'
-    changeVersion(mvnHome, versionNumber)
+    mavenUtils.changeVersion(mvnHome, versionNumber)
     sh "${mvnHome}/bin/mvn -B -P maven-central clean verify package"
 
     junit '**/target/surefire-reports/TEST-*.xml'
