@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def changeVersion (String version) {
+def changeVersion (String mvnHome, String version) {
     if (env.BRANCH_NAME == 'master') {
         sh "${mvnHome}/bin/mvn -B versions:set -DgenerateBackupPoms=false -DnewVersion=${version}"
     }
@@ -12,7 +12,7 @@ node {
 
     checkout scm
     stage 'build'
-    changeVersion(versionNumber)
+    changeVersion(mvnHome, versionNumber)
     sh "${mvnHome}/bin/mvn -B -P maven-central clean verify package"
 
     junit '**/target/surefire-reports/TEST-*.xml'
