@@ -19,10 +19,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.confluent.kafka.connect.salesforce.rest.model.SObjectDescriptor;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.Struct;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class SObjectHelperTest {
